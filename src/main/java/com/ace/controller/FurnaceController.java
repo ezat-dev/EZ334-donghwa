@@ -1,11 +1,14 @@
 package com.ace.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
 import org.eclipse.milo.opcua.stack.core.UaException;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ace.domain.Recipe;
 import com.ace.service.FurnaceService;
+import com.ace.util.NodeMap;
 
 @Controller
 public class FurnaceController {
@@ -77,18 +81,39 @@ public class FurnaceController {
 	}
 	
 	//레시피 상세보기
-	@RequestMapping(value = "/furnace/recipe/recipeData", method = RequestMethod.GET)
-	public String recipeData(
+	@RequestMapping(value = "/furnace/recipe/recipeData", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> recipeData(
 			@RequestParam(required = false) int r_idx,
-			@RequestParam(required = false) int r_data_idx) {
+			@RequestParam(required = false) int r_data_idx,
+			HttpServletResponse response) throws IOException {
+		
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
 		
 		v_r_idx = r_idx;
 		v_r_data_idx = r_data_idx;
 		
 		System.out.println("v_r_idx : "+v_r_idx+"// v_r_data_idx : "+v_r_data_idx);
 		
-		return "/furnace/recipeData.jsp";
-	}
+
+		rtnMap.put("page","/donghwa/furnace/recipe/recipeDataView");
+		
+		return rtnMap;		
+	}	
+	
+	@RequestMapping(value = "/furnace/recipe/recipeDataView", method = RequestMethod.GET)
+	public String recipeView(Model model) {
+		String rtnPage = "";
+		//선택한 행의 idx값이 없으면
+		if(v_r_idx == 0 && v_r_data_idx == 0) {
+			//전체 리스트로 이동
+			rtnPage = "/furnace/recipeList.jsp";
+		}else {
+			rtnPage = "/furnace/recipeData.jsp";
+		}		
+		
+		return rtnPage;
+	}	
 	
 	//레시피 상세보기 값 조회
 	@RequestMapping(value = "/furnace/recipe/recipeDataList", method = RequestMethod.POST)
@@ -104,12 +129,37 @@ public class FurnaceController {
 		
 		List<Recipe> recipeDataList = furnaceService.getRecipeDataList(recipe);
 		
+		System.out.println("레시피의 데이터 수 : "+recipeDataList.size());
+		
 		for(int i=0; i<recipeDataList.size(); i++) {
 			Map<String, Object> rowMap = new HashMap<String, Object>();
 			
 			rowMap.put("process-step-"+i,recipeDataList.get(i).getProcess_step());
 			rowMap.put("time-"+i,recipeDataList.get(i).getTime());
 			rowMap.put("temperature-"+i,recipeDataList.get(i).getTemper());
+			rowMap.put("temperature-tc-"+i,recipeDataList.get(i).getTemper_tolerance_cont());
+			rowMap.put("temperature-th-"+i,recipeDataList.get(i).getTemper_tolerance_hold());
+			rowMap.put("hbth-"+i,recipeDataList.get(i).getHoldback_timeout_heating());
+			rowMap.put("pressure-sv-"+i,recipeDataList.get(i).getPressure_set_value());
+			rowMap.put("pressing-one-"+i,recipeDataList.get(i).getPressing_capacity_f1());
+			rowMap.put("pressing-two-"+i,recipeDataList.get(i).getPressing_capacity_f2());
+			rowMap.put("force-tol-"+i,recipeDataList.get(i).getForece_tolerance());
+			rowMap.put("position-ab-"+i,recipeDataList.get(i).getPosition_abs());
+			rowMap.put("position-rel-"+i,recipeDataList.get(i).getPosition_relative());
+			rowMap.put("distance-"+i,recipeDataList.get(i).getDistance_tolerance());
+			rowMap.put("holding-one-"+i,recipeDataList.get(i).getHolding_time1());
+			rowMap.put("holding-two-"+i,recipeDataList.get(i).getHolding_time2());
+			rowMap.put("number-loops-"+i,recipeDataList.get(i).getNumber_of_loops());
+			rowMap.put("speed-plunger-"+i,recipeDataList.get(i).getSpeed_of_plunger());
+			rowMap.put("gradient-force-"+i,recipeDataList.get(i).getGradient_of_force());
+			rowMap.put("fastcooling-"+i,recipeDataList.get(i).getFastcooling());
+			rowMap.put("gas-n-"+i,recipeDataList.get(i).getGas_n2());
+			rowMap.put("gas-a-"+i,recipeDataList.get(i).getGas_ar());
+			rowMap.put("spare-"+i,recipeDataList.get(i).getSpare());
+			rowMap.put("hydrulic-off-"+i,recipeDataList.get(i).getHydraulic_unit_off());
+			rowMap.put("press-capacity-"+i,recipeDataList.get(i).getPress_capacity_control());
+			rowMap.put("press-position-"+i,recipeDataList.get(i).getPress_position_control());
+			rowMap.put("press-distance-"+i,recipeDataList.get(i).getPress_distance_control());
 			
 			recipeList.add(rowMap);
 		}
@@ -117,8 +167,6 @@ public class FurnaceController {
 		rtnMap.put("data",recipeList);
 		
 		//선택한 레시피의 기준값 초기화
-		v_r_idx = 0;
-		v_r_data_idx = 0;
 		return rtnMap;
 	}
 	
@@ -172,7 +220,40 @@ public class FurnaceController {
 	    }
 	
 	    return response;
-	}	
+	}
+	
+	//레시피값 DB 쓰기
+	@RequestMapping(value = "/furnace/recipe/databaseWrite", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> recipeDataWrite(@RequestBody List<NodeValuePair> nodeValuePairs) {
+		
+	    Map<String, String> response = new HashMap<String, String>();
+	    
+	    NodeMap nodeMap = new NodeMap();
+
+        for (NodeValuePair pair : nodeValuePairs) {
+    		
+    		Recipe recipe = new Recipe();
+    		
+    		recipe.setR_idx(v_r_idx);
+    		recipe.setR_data_idx(v_r_data_idx);
+    		
+    		String nodeIdStr = pair.getNodeId();
+    		short valueStr = pair.getValue();
+    		
+    		String[] nodeArr = nodeIdStr.split(".");
+    		
+    		//테이블의 segment컬럼
+//    		int segment = nodeMap.getKey(nodeArr[3]);
+    		
+    		System.out.println("nodeIdStr : "+nodeIdStr+"// valueStr : "+valueStr);
+    		
+
+        }
+	
+	    return response;
+	}
+	
 	
 	//레시피 - 글로벌 파라미터 팝업창 열기
 	@RequestMapping(value = "/furnace/recipe/globalParameter", method = RequestMethod.GET)

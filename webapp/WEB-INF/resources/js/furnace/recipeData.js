@@ -79,6 +79,8 @@ function validateNumberInput(event) {
               }
           });
       });
+
+
   });
 
 
@@ -114,6 +116,9 @@ $(document).ready(function() {
         // AJAX 요청을 통해 데이터 전송
         sendAjax(data);
     });
+
+    //레시피 초기데이터 조회
+    getRecipeDataList();
 });
 
         function sendAjax(data) {
@@ -134,6 +139,8 @@ $(document).ready(function() {
 
         //레시피 데이터 조회
         function getRecipeDataList(){
+            console.log("ddd");
+
             $.ajax({
                 url:"/donghwa/furnace/recipe/recipeDataList",
                 type:"post",
@@ -141,8 +148,10 @@ $(document).ready(function() {
                 data:{},
                 success:function(result){
                     var data = result.data;
-
-                    console.log(data);
+                    console.log(data.length);
+                    
+                    
+                    
                 }
             });
         }

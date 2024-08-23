@@ -71,14 +71,16 @@ $(function(){
 
 		$.ajax({
 			url:"/donghwa/furnace/recipe/recipeData",
-			type:"get",
-			dataType:"string",
+			type:"post",
+			dataType:"json",
 			data:{
 				"r_idx":r_idx,
 				"r_data_idx":r_data_idx
 			},
 			success:function(result){
 				console.log(result);
+
+				location.href = result.page;
 			}
 		});
 
