@@ -18,4 +18,22 @@
 		ORDER BY r_idx, r_data_idx, segment
 	</select>
 	
+	<insert id="recipeDataWrite" parameterType="recipe" statementType="CALLABLE">
+		{CALL sp_recipe_set(
+			#{r_f_idx}, #{r_f_data_idx}, #{segment}, #{process_step},
+			#{time}, #{temper}, #{temper_tolerance_cont}, #{temper_tolerance_hold},
+			#{holdback_timeout_heating}, #{pressure_set_value},
+			#{pressing_capacity_f1}, #{pressing_capacity_f2},
+			#{forece_tolerance}, #{position_abs},
+			#{position_relative}, #{distance_tolerance},
+			#{holding_time1}, #{holding_time2},
+			#{number_of_loops}, #{speed_of_plunger},
+			#{gradient_of_force}, #{fastcooling},
+			#{gas_n2}, #{gas_ar},
+			#{spare}, #{hydraulic_unit_off},
+			#{press_capacity_control}, #{press_position_control},
+			#{press_distance_control}
+		)}
+	</insert>	
+	
 </mapper>

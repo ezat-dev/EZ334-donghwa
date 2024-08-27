@@ -24,6 +24,11 @@ public class FurnaceServiceImpl implements FurnaceService{
 		return furnaceDao.getRecipeDataList(recipe);
 	}
 
+	@Override
+	public void recipeDataWrite(Recipe recipe) {
+		furnaceDao.recipeDataWrite(recipe);
+	}
+
 	
 
 }

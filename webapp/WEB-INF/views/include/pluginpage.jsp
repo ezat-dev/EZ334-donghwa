@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- 메인CSS -->
-<link rel="stylesheet" href="/donghwa/css/style.css">
-
 <!-- jQuery -->
 <script type="text/javascript" src="/donghwa/js/jquery-3.7.1.min.js"></script>
 

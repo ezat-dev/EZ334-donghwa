@@ -10,4 +10,6 @@ public interface FurnaceDao {
 
 	List<Recipe> getRecipeDataList(Recipe recipe);
 
+	void recipeDataWrite(Recipe recipe);
+
 }

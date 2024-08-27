@@ -23,6 +23,11 @@ public class FurnaceDaoImpl implements FurnaceDao{
 	public List<Recipe> getRecipeDataList(Recipe recipe) {
 		return sqlSession.selectList("recipe.getRecipeDataList", recipe);
 	}
+
+	@Override
+	public void recipeDataWrite(Recipe recipe) {
+		sqlSession.insert("recipe.recipeDataWrite", recipe);
+	}
 	
 
 }

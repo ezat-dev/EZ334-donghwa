@@ -93,7 +93,7 @@ public class FurnaceController {
 		v_r_idx = r_idx;
 		v_r_data_idx = r_data_idx;
 		
-		System.out.println("v_r_idx : "+v_r_idx+"// v_r_data_idx : "+v_r_data_idx);
+//		System.out.println("v_r_idx : "+v_r_idx+"// v_r_data_idx : "+v_r_data_idx);
 		
 
 		rtnMap.put("page","/donghwa/furnace/recipe/recipeDataView");
@@ -129,7 +129,7 @@ public class FurnaceController {
 		
 		List<Recipe> recipeDataList = furnaceService.getRecipeDataList(recipe);
 		
-		System.out.println("레시피의 데이터 수 : "+recipeDataList.size());
+//		System.out.println("레시피의 데이터 수 : "+recipeDataList.size());
 		
 		for(int i=0; i<recipeDataList.size(); i++) {
 			Map<String, Object> rowMap = new HashMap<String, Object>();
@@ -225,32 +225,54 @@ public class FurnaceController {
 	//레시피값 DB 쓰기
 	@RequestMapping(value = "/furnace/recipe/databaseWrite", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> recipeDataWrite(@RequestBody List<NodeValuePair> nodeValuePairs) {
+	public Map<String, String> recipeDataWrite(@RequestBody List<Map<String, Object>> dataList) {
 		
 	    Map<String, String> response = new HashMap<String, String>();
 	    
-	    NodeMap nodeMap = new NodeMap();
+//	    System.out.println(dataList.toString());
+	    System.out.println("v_r_idx : "+v_r_idx+"// v_r_data_idx : "+v_r_data_idx);
+    
+	    for(int i=0; i<dataList.size(); i++) {
+	    	Map<String, Object> nowMap = dataList.get(i);
+	    	
+	    	Recipe recipe = new Recipe();
+			recipe.setR_f_idx(v_r_idx);
+			recipe.setR_f_data_idx(v_r_data_idx);
+			recipe.setSegment(Short.parseShort(nowMap.get("segment").toString()));
+			recipe.setProcess_step(Short.parseShort(nowMap.get("process_step").toString()));	    
+			recipe.setTime(Short.parseShort(nowMap.get("time").toString()));	    
+			recipe.setTemper(Short.parseShort(nowMap.get("temperature").toString()));	    
+			recipe.setTemper_tolerance_cont(Short.parseShort(nowMap.get("temperature_tc").toString()));	    
+			recipe.setTemper_tolerance_hold(Short.parseShort(nowMap.get("temperature_th").toString()));	    
+			recipe.setHoldback_timeout_heating(Short.parseShort(nowMap.get("hbth").toString()));	    
+			recipe.setPressure_set_value(Short.parseShort(nowMap.get("pressure_sv").toString()));	    
+			recipe.setPressing_capacity_f1(Short.parseShort(nowMap.get("pressing_one").toString()));	    
+			recipe.setPressing_capacity_f2(Short.parseShort(nowMap.get("pressing_two").toString()));	    
+			recipe.setForece_tolerance(Short.parseShort(nowMap.get("force_tol").toString()));	    
+			recipe.setPosition_abs(Short.parseShort(nowMap.get("position_ab").toString()));	    
+			recipe.setPosition_relative(Short.parseShort(nowMap.get("position_rel").toString()));	    
+			recipe.setDistance_tolerance(Short.parseShort(nowMap.get("distance").toString()));	    
+			recipe.setHolding_time1(Short.parseShort(nowMap.get("holding_one").toString()));	    
+			recipe.setHolding_time2(Short.parseShort(nowMap.get("holding_two").toString()));	    
+			recipe.setNumber_of_loops(Short.parseShort(nowMap.get("number_loops").toString()));	    
+			recipe.setSpeed_of_plunger(Short.parseShort(nowMap.get("speed_plunger").toString()));	    
+			recipe.setGradient_of_force(Short.parseShort(nowMap.get("gradient_force").toString()));	    
+			recipe.setFastcooling(Short.parseShort(nowMap.get("fastcooling").toString()));	    
+			recipe.setGas_n2(Short.parseShort(nowMap.get("gas_n").toString()));	    
+			recipe.setGas_ar(Short.parseShort(nowMap.get("gas_a").toString()));	    
+			recipe.setSpare(Short.parseShort(nowMap.get("spare").toString()));
+			recipe.setHydraulic_unit_off(Short.parseShort(nowMap.get("hydrulic_off").toString()));
+			recipe.setPress_capacity_control(Short.parseShort(nowMap.get("press_capacity").toString()));
+			recipe.setPress_position_control(Short.parseShort(nowMap.get("press_position").toString()));
+			recipe.setPress_distance_control(Short.parseShort(nowMap.get("press_distance").toString()));
+			
+			
+			//레시피
+			furnaceService.recipeDataWrite(recipe);
+		}
 
-        for (NodeValuePair pair : nodeValuePairs) {
-    		
-    		Recipe recipe = new Recipe();
-    		
-    		recipe.setR_idx(v_r_idx);
-    		recipe.setR_data_idx(v_r_data_idx);
-    		
-    		String nodeIdStr = pair.getNodeId();
-    		short valueStr = pair.getValue();
-    		
-    		String[] nodeArr = nodeIdStr.split(".");
-    		
-    		//테이블의 segment컬럼
-//    		int segment = nodeMap.getKey(nodeArr[3]);
-    		
-    		System.out.println("nodeIdStr : "+nodeIdStr+"// valueStr : "+valueStr);
-    		
-
-        }
-	
+	    
+	    
 	    return response;
 	}
 	

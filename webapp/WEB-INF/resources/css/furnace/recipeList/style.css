@@ -1,0 +1,170 @@
+.recipe-list,
+.recipe-list * {
+  box-sizing: border-box;
+}
+.recipe-list {
+  height: 1080px;
+  position: relative;
+}
+.global {
+  background: #cccccc;
+  width: 2400px;
+  height: 1050px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+.frame-1 {
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
+  width: 2380px;
+  height: 1110px;
+  position: absolute;
+  left: 9px;
+  top: 11px;
+  overflow: hidden;
+}
+.recipe-list-footer {
+  background: #d9d9d9;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
+  width: 2400px;
+  height: 89px;
+  position: absolute;
+  left: 0px;
+  top: 1051px;
+}
+.new {
+  background: #eeeeee;
+  border-radius: 3px;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
+  width: 215px;
+  height: 31px;
+  position: absolute;
+  left: 32px;
+  top: 1080px;
+}
+.new2 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 120px;
+  top: 1080px;
+}
+.delete {
+  background: #eeeeee;
+  border-radius: 3px;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
+  width: 215px;
+  height: 31px;
+  position: absolute;
+  left: 386px;
+  top: 1080px;
+}
+.delete2 {
+  color: #000000;
+  text-align: center;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 465px;
+  top: 1080px;
+}
+.copy-recipe {
+  background: #eeeeee;
+  border-radius: 3px;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
+  width: 215px;
+  height: 31px;
+  position: absolute;
+  left: 740px;
+  top: 1080px;
+}
+.copy-recipe2 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 793px;
+  top: 1080px;
+}
+.show-recipe {
+  background: #eeeeee;
+  border-radius: 3px;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
+  width: 215px;
+  height: 31px;
+  position: absolute;
+  left: 1094px;
+  top: 1080px;
+}
+.show-recipe2 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 1146px;
+  top: 1080px;
+}
+.read-in {
+  background: #eeeeee;
+  border-radius: 3px;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
+  width: 215px;
+  height: 31px;
+  position: absolute;
+  left: 1448px;
+  top: 1080px;
+}
+.read-in2 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 1524px;
+  top: 1080px;
+}
+.exit {
+  background: #eeeeee;
+  border-radius: 3px;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
+  width: 215px;
+  height: 31px;
+  position: absolute;
+  left: 1802px;
+  top: 1080px;
+}
+.exit2 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 1894px;
+  top: 1080px;
+}

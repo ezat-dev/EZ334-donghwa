@@ -10,5 +10,7 @@ public interface FurnaceService {
 
 	List<Recipe> getRecipeDataList(Recipe recipe);
 
+	void recipeDataWrite(Recipe recipe);
+
 
 }
