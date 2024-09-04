@@ -36,6 +36,9 @@ public class FurnaceController {
 
 	private static int v_r_idx = 0;
 	private static int v_r_data_idx = 0;
+	private static int v_r_number;
+	private static String v_r_name;
+	private static String v_r_comment;
 	
 	@Autowired
 	private FurnaceService furnaceService;
@@ -71,7 +74,7 @@ public class FurnaceController {
 			rowMap.put("r_idx", getRecipeList.get(i).getR_idx());
 			rowMap.put("r_data_idx", getRecipeList.get(i).getR_data_idx());
 			
-			recipeList.add(rowMap);			
+			recipeList.add(rowMap);
 		}
 		
 		rtnMap.put("last_page",1);
@@ -86,6 +89,9 @@ public class FurnaceController {
 	public Map<String, Object> recipeData(
 			@RequestParam(required = false) int r_idx,
 			@RequestParam(required = false) int r_data_idx,
+			@RequestParam(required = false) int r_number,
+			@RequestParam(required = false) String r_name,
+			@RequestParam(required = false) String r_comment,
 			HttpServletResponse response) throws IOException {
 		
 		Map<String, Object> rtnMap = new HashMap<String, Object>();

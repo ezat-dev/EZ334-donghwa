@@ -1278,7 +1278,7 @@ body {
       <div class="display-actual-row2">display actual row</div>
       <div class="edit">Edit</div>
       <div class="global-parameters" style="cursor:pointer;" onclick="location.href='/donghwa/furnace/recipe/globalParameter'"></div>
-      <div class="global-parameters2">Global Parameters</div>
+      <div class="global-parameters2"style="cursor:pointer;" >Global Parameters</div>
       <div class="save">Save</div>
       <button class="save-to-db">Save to Database</button>
       <div class="protocol">Protocol</div>

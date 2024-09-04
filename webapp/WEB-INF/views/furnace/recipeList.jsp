@@ -55,22 +55,25 @@
     <div class="global"></div>
 	<div id="recipe_list" class="frame-1"></div>    
     <div class="recipe-list-footer"></div>
-    <div class="new"></div>
-    <div class="new2">New</div>
-    <div class="delete"></div>
-    <div class="delete2">Delete</div>
-    <div class="copy-recipe"></div>
-    <div class="copy-recipe2">Copy Recipe</div>
-    <div class="show-recipe"></div>
-    <div class="show-recipe2">Show Recipe</div>
-    <div class="read-in"></div>
-    <div class="read-in2">Read In</div>
-    <div class="exit"></div>
-    <div class="exit2">Exit</div>
+    <div class="new" style="cursor:pointer;"></div>
+    <div class="new2" style="cursor:pointer;">New</div>
+    <div class="delete" style="cursor:pointer;"></div>
+    <div class="delete2" style="cursor:pointer;">Delete</div>
+    <div class="copy-recipe" style="cursor:pointer;"></div>
+    <div class="copy-recipe2" style="cursor:pointer;">Copy Recipe</div>
+    <div class="show-recipe" style="cursor:pointer;" onclick="getRecipeSelect();"></div>
+    <div class="show-recipe2" style="cursor:pointer;" onclick="getRecipeSelect();">Show Recipe</div>
+    <div class="read-in" style="cursor:pointer;"></div>
+    <div class="read-in2" style="cursor:pointer;">Read In</div>
   </div>
 <script>
 //전역변수
 var recipeTable;
+var selectIdx = 0;
+var selectDataIdx = 0;
+var selectNumber = 0;
+var selectName = "";
+var selectComment = "";
 
 //로드
 $(function(){
@@ -108,6 +111,10 @@ $(function(){
 					hozAlign:"center"},
 				{title:"Last modified", field:"r_updatetime", sorter:"string", width:150,
 					hozAlign:"center"},
+				{title:"r_idx", field:"r_idx", sorter:"int", width:150,
+					hozAlign:"center", visible:false},
+				{title:"r_data_idx", field:"r_data_idx", sorter:"int", width:150,
+					hozAlign:"center", visible:false},
 			],
 		    rowFormatter:function(row){
 		    	row.getElement().style.backgroundColor = "#FFFFFF";
@@ -124,21 +131,36 @@ $(function(){
 						row.getElement().className += " row_select";	
 					}
 				});
+				
+				var data = row.getData();
+				
+				selectIdx = data.r_idx;
+				selectDataIdx = data.r_data_idx;
+				selectNumber = data.num;
+				selectName = data.r_name;
+				selectComment = data.r_comment;
 			},				
 		    rowDblClick:function(e, row){
 			    var data = row.getData();
-				getRecipeSelect(data);
+				selectIdx = data.r_idx;
+				selectDataIdx = data.r_data_idx;
+				selectNumber = data.num;
+				selectName = data.r_name;
+				selectComment = data.r_comment;
+				
+				getRecipeSelect();
 			}
 			
 		});	
 	}
 
-	function getRecipeSelect(rowData){
-		console.log(rowData);
-		var r_idx = rowData.r_idx;
-		var r_data_idx = rowData.r_data_idx;
+	function getRecipeSelect(){
+		var r_idx = selectIdx;
+		var r_data_idx = selectDataIdx;
+		var r_number = selectNumber;
+		var r_name = selectName;
+		var r_comment = selectComment;
 
-		console.log("asd");
 
 		$.ajax({
 			url:"/donghwa/furnace/recipe/recipeData",
@@ -146,10 +168,12 @@ $(function(){
 			dataType:"json",
 			data:{
 				"r_idx":r_idx,
-				"r_data_idx":r_data_idx
+				"r_data_idx":r_data_idx,
+				"r_number":r_number,
+				"r_name":r_name,
+				"r_comment":r_comment
 			},
 			success:function(result){
-				console.log(result);
 
 				location.href = result.page;
 			}
