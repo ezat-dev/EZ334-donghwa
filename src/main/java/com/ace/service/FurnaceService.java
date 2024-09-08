@@ -12,5 +12,15 @@ public interface FurnaceService {
 
 	void recipeDataWrite(Recipe recipe);
 
+	void recipeNew();
+
+	void recipeCopy(Recipe recipe);
+
+	void recipeDelete(Recipe recipe);
+
+	int recipeCheck(Recipe recipe);
+
+	List<Recipe> graphicalProcessTrend(Recipe recipe);
+
 
 }

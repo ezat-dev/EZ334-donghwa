@@ -55,12 +55,12 @@
     <div class="global"></div>
 	<div id="recipe_list" class="frame-1"></div>    
     <div class="recipe-list-footer"></div>
-    <div class="new" style="cursor:pointer;"></div>
-    <div class="new2" style="cursor:pointer;">New</div>
-    <div class="delete" style="cursor:pointer;"></div>
-    <div class="delete2" style="cursor:pointer;">Delete</div>
-    <div class="copy-recipe" style="cursor:pointer;"></div>
-    <div class="copy-recipe2" style="cursor:pointer;">Copy Recipe</div>
+    <div class="new" style="cursor:pointer;" onclick="getRecipeNew();"></div>
+    <div class="new2" style="cursor:pointer;" onclick="getRecipeNew();">New</div>
+    <div class="delete" style="cursor:pointer;" onclick="getRecipeDelete();"></div>
+    <div class="delete2" style="cursor:pointer;" onclick="getRecipeDelete();">Delete</div>
+    <div class="copy-recipe" style="cursor:pointer;" onclick="getRecipeCopy();"></div>
+    <div class="copy-recipe2" style="cursor:pointer;" onclick="getRecipeCopy();">Copy Recipe</div>
     <div class="show-recipe" style="cursor:pointer;" onclick="getRecipeSelect();"></div>
     <div class="show-recipe2" style="cursor:pointer;" onclick="getRecipeSelect();">Show Recipe</div>
     <div class="read-in" style="cursor:pointer;"></div>
@@ -107,9 +107,9 @@ $(function(){
 					hozAlign:"center"},
 				{title:"Comment", field:"r_comment", sorter:"string", width:150,
 					hozAlign:"center"},
-				{title:"Date created", field:"r_createtime", sorter:"string", width:150,
+				{title:"Date created", field:"r_createtime", sorter:"string", width:180,
 					hozAlign:"center"},
-				{title:"Last modified", field:"r_updatetime", sorter:"string", width:150,
+				{title:"Last modified", field:"r_updatetime", sorter:"string", width:180,
 					hozAlign:"center"},
 				{title:"r_idx", field:"r_idx", sorter:"int", width:150,
 					hozAlign:"center", visible:false},
@@ -181,6 +181,59 @@ $(function(){
 
 	}
 
+	//새로운 레시피 생성
+	function getRecipeNew(){
+		$.ajax({
+			url:"/donghwa/furnace/recipe/recipeNew",
+			type:"POST",
+			dataType:"json",
+			data:{},
+			success:function(result){
+				getRecipeList();
+			}
+		});
+	}
+	
+	//기존 레시피 복사
+	function getRecipeCopy(){
+		var r_idx = selectIdx;
+		var r_data_idx = selectDataIdx;
+		
+		$.ajax({
+			url:"/donghwa/furnace/recipe/recipeCopy",
+			type:"POST",
+			dataType:"json",
+			data:{
+				"r_idx":r_idx,
+				"r_data_idx":r_data_idx
+			},
+			success:function(result){
+				getRecipeList();
+			}
+		});
+	}
+	
+	
+	//레시피 삭제
+	function getRecipeDelete(){
+		var r_idx = selectIdx;
+		var r_data_idx = selectDataIdx;
+		
+		$.ajax({
+			url:"/donghwa/furnace/recipe/recipeDelete",
+			type:"post",
+			dataType:"json",
+			data:{
+				"r_idx":r_idx,
+				"r_data_idx":r_data_idx
+			},
+			success:function(result){
+				console.log(result);
+				
+				getRecipeList();
+			}
+		});
+	}
 //다이얼로그
 </script>
 </body>

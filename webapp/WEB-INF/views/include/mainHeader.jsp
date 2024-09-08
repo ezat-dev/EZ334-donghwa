@@ -101,7 +101,7 @@
         Furnace
         <ul class="submenu">
           <li>Overview</li>
-          <li>Manual Operation</li>
+          <li onclick="popupClick('/donghwa/furnace/manualOperation');">Manual Operation</li>
           <li>Operation Press</li>
           <li>Automatic program</li>
           <li onclick="menuClick('/donghwa/furnace/recipe');">Recipe</li>
@@ -197,6 +197,40 @@
     	location.href = url;
 //		console.log(url1);
 		
+    }
+    
+    function popupClick(url){
+/*
+  	- fullscreen = 전체 창. (yes/no)(default : no)
+  	- location = 주소창이 활성화. (yes/no)(default : yes)
+  	- menubar = 메뉴바 visible. (yes/no)(default : yes)
+  	- titlebar = 타이틀바. (yes/no)(default : yes)
+  	- toolbar = 툴바. (yes/no)(default : yes)
+  	- resizable = 창 사이즈 변경. (yes/no)(default : yes)
+  	- scrollbars = 스크롤바. (yes/no)(default : yes)
+  	- width = 창 가로 크기
+  	- height = 창 세로 크기 
+ */    	
+    	
+ 		var fullscreen = "no";					//기본값 : no
+ 		var location = "yes";					//기본값 : yes
+ 		var menubar = "yes";					//기본값 : yes
+ 		var titlebar = "yes";					//기본값 : yes
+ 		var toolbar = "yes";					//기본값 : yes
+ 		var resizable = "yes";					//기본값 : yes
+ 		var scrollbars = "yes";					//기본값 : yes
+ 		var browserWidth = window.outerWidth;	//기본값 : 
+ 		var browserHeight = window.outerHeight;	//기본값 : 
+ 		var popupName = "test";					//기본값 : 
+ 		var popupWidth = "340";					//기본값 : 
+ 		var popupHeight = "720";				//기본값 : 
+ 		var popupTop = (browserHeight-popupHeight)/2; 
+ 		var popupLeft = (browserWidth-popupWidth)/2;						//기본값 : 
+ 
+ 		console.log(popupTop);
+ 		
+ 		
+    	window.open(url,"test", "scrollbars=no,width="+popupWidth+",height="+popupHeight+",top="+popupTop+",left="+popupLeft+",menubar=false");
     }
     
   </script>

@@ -31,7 +31,8 @@ body {
   <div class="group-1">
     <div class="recipe-main"></div>
     <div class="recipe-footer"></div>
-    <div class="number"><input type="text" id="recipeNumber" class="input-number" oninput="validateNumberInput(event)"/></div>
+    <div class="number"><input type="text" id="recipeNumber" class="input-number"/></div>
+    <div class="numberData" style="display:none;"><input type="text" id="recipeNumberData" class="input-number"/></div>
     <div class="name"><input type="text" id="recipeName" class="input-name" /></div>
     <div class="comment"><input type="text" id="recipeComment" class="input-comment"/></div>
     <div class="segment">Segment</div>
@@ -1282,7 +1283,7 @@ body {
       <div class="save">Save</div>
       <button class="save-to-db">Save to Database</button>
       <div class="protocol">Protocol</div>
-      <div class="graphical-process"></div>
+      <div class="graphical-process" style="cursor:pointer;" onclick="getGraphicalProcess();"></div>
       <div class="insert-segment"></div>
       <div class="save-to-csv"></div>
       <div class="delete-segment"></div>
@@ -1291,7 +1292,7 @@ body {
       <div class="back-to-recipe-overview">&lt;&lt; Back to recipe-overview</div>
       <div class="save-to-csv-file">Save to csv-file</div>
       <div class="print2">print</div>
-      <div class="graphical-process2">Graphical Process</div>
+      <div class="graphical-process2" style="cursor:pointer;" onclick="getGraphicalProcess();">Graphical Process</div>
       <div class="insert-segment2">Insert Segment</div>
       <div class="delete-segment2">Delete Segment</div>
       
@@ -1318,6 +1319,22 @@ $(function(){
 //레시피 값 PLC 전송
    $('.save-to-plc').click(function() {
        const data = [];
+       const dataString = [];
+
+       var recipeName = $("#recipeName").val();
+       var recipeComment = $("#recipeComment").val();
+
+       //name, comment 먼저 추가
+       dataString.push({
+    	   nodeId :"string_name",
+    	   valueString : recipeName
+       });
+       
+       dataString.push({
+    	   nodeId :"string_comment",
+    	   valueString : recipeComment
+       });
+
 
        // 모든 입력 필드를 순회하며 데이터 배열에 추가
        $('.input-text').each(function() {
@@ -1343,8 +1360,10 @@ $(function(){
            });
        });
 
+       
        // AJAX 요청을 통해 데이터 전송
-       sendPlc(data);
+//       sendPlc(data);
+       sendPlcString(dataString);
    });
    
 //레시피 값 데이터베이스 전송
@@ -1358,6 +1377,8 @@ $(function(){
 			   var dataObj = new Object();
 			   
 			   dataObj.segment = i;
+			   dataObj.name = $("#recipeName").val();
+			   dataObj.comment = $("#recipeComment").val();
 			   dataObj.process_step = $("#seg-"+i+"> .process-step-"+i+" > input ").val();
 			   dataObj.time = $("#seg-"+i+"> .time-"+i+" > input ").val();
 			   dataObj.temperature = $("#seg-"+i+"> .temperature-"+i+" > input ").val();
@@ -1392,9 +1413,6 @@ $(function(){
 		   }
 	   }
 	   
-	   
-	   console.log(dataArr);
-	   
 	   sendDatabase(dataArr);
    });
 
@@ -1413,11 +1431,7 @@ function validateNumberInput(event) {
     //id가 id로 시작하는 전체태그 배열
     const allInputs = document.querySelectorAll('input[id^="id"]');
 
-
-
-
     if (inputIdNumber % 26 == 0) {
-        console.log("inputIdNumber : "+inputIdNumber);
         
         //process_step에서 입력된 값이 0
     	if (inputValue == "0") {
@@ -1472,6 +1486,24 @@ function sendPlc(data) {
     });
 }
 
+//레시피값 PLC 전송
+function sendPlcString(dataString) {
+	
+    $.ajax({
+        url: "/donghwa/furnace/recipe/plcWriteString",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8", // JSON 데이터를 전송할 경우 필요
+        data: JSON.stringify(dataString), // 데이터를 JSON 문자열로 변환하여 전송
+        success: function(response) {
+            console.log('서버 응답:', response);
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX 에러:', status, error);
+        }
+    });
+}
+
 
 
 //레시피값 데이터베이스 전송
@@ -1501,7 +1533,6 @@ function getRecipeDataList(){
         data:{},
         success:function(result){
             var data = result.data;
-            console.log(data.length);
             
             for(let key in data){
             	for(let keys in data[key]){
@@ -1516,6 +1547,19 @@ function getRecipeDataList(){
     });
 }
 
+//레시피값 트렌드 조회
+function getGraphicalProcess(){
+	var recipeNumber = $("#recipeNumber").val();
+	var recipeNumberData = $("#recipeNumberData").val();
+
+	sessionStorage.setItem("recipeNumber", recipeNumber);
+	sessionStorage.setItem("recipeNumberData", recipeNumberData);
+	
+	
+	var url = "/donghwa/furnace/recipe/graphicalProcess";
+	
+	window.open(url,"test", "scrollbars=no,width=1600,height=900,top=200,left=100,menubar=false");
+}
 
 //다이얼로그
 

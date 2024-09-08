@@ -6,7 +6,7 @@
 	
 	<select id="getRecipeList" resultType="recipe">
 		SELECT *
-		FROM tb_recipe
+		FROM v_recipe
 	</select>
 
 	<select id="getRecipeDataList" parameterType="recipe" resultType="recipe">
@@ -32,8 +32,37 @@
 			#{gas_n2}, #{gas_ar},
 			#{spare}, #{hydraulic_unit_off},
 			#{press_capacity_control}, #{press_position_control},
-			#{press_distance_control}
+			#{press_distance_control}, #{r_name}, #{r_comment}
 		)}
 	</insert>	
+	
+	<insert id="recipeNew" statementType="CALLABLE">
+		{CALL sp_recipe_create_set()}
+	</insert>
+	
+	<insert id="recipeCopy" parameterType="recipe" statementType="CALLABLE">
+		{CALL sp_recipe_copy_set(${r_idx}, ${r_data_idx})}
+	</insert>
+	
+	<update id="recipeDelete" parameterType="recipe" statementType="CALLABLE">
+		{CALL sp_recipe_delete_set(${r_idx}, ${r_data_idx})}
+	</update>
+	
+	<select id="recipeCheck" parameterType="recipe" resultType="int">
+		SELECT COUNT(*) AS ccnt
+		FROM tb_recipe
+		WHERE 1=1
+		AND r_idx = ${r_idx}
+		AND r_data_idx = ${r_data_idx}
+	</select>
+	
+	<select id="graphicalProcessTrend" resultType="recipe" parameterType="recipe">
+		SELECT *
+		FROM tb_recipe_data
+		WHERE 1=1
+		AND r_f_idx = ${r_f_idx}
+		AND r_f_data_idx = ${r_f_data_idx}
+		AND process_step != 0
+	</select>	
 	
 </mapper>

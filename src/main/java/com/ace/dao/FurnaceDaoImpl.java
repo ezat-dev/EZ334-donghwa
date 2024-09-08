@@ -28,6 +28,31 @@ public class FurnaceDaoImpl implements FurnaceDao{
 	public void recipeDataWrite(Recipe recipe) {
 		sqlSession.insert("recipe.recipeDataWrite", recipe);
 	}
+
+	@Override
+	public void recipeNew() {
+		sqlSession.insert("recipe.recipeNew");
+	}
+
+	@Override
+	public void recipeCopy(Recipe recipe) {
+		sqlSession.insert("recipe.recipeCopy", recipe);
+	}
+
+	@Override
+	public void recipeDelete(Recipe recipe) {
+		sqlSession.update("recipe.recipeDelete",recipe);
+	}
+
+	@Override
+	public int recipeCheck(Recipe recipe) {
+		return sqlSession.selectOne("recipe.recipeCheck", recipe);
+	}
+
+	@Override
+	public List<Recipe> graphicalProcessTrend(Recipe recipe) {
+		return sqlSession.selectList("recipe.graphicalProcessTrend", recipe);
+	}
 	
 
 }

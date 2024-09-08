@@ -1,0 +1,538 @@
+.group-1,
+.group-1 * {
+  box-sizing: border-box;
+}
+.group-1 {
+  height: 808px;
+  position: relative;
+}
+.wrapper {
+  width: 1918px;
+  height: 878px;
+  position: static;
+}
+.header {
+  background: #123478;
+  width: 1918px;
+  height: 46.68px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+.footer {
+  background: #123478;
+  width: 1918px;
+  height: 72.43px;
+  position: absolute;
+  left: 0px;
+  top: 805.57px;
+}
+.main {
+  background: #ffffff;
+  width: 1918px;
+  height: 758.89px;
+  position: absolute;
+  left: 0px;
+  top: 46.68px;
+}
+.hamburger-icon-svg-1 {
+  width: 33px;
+  height: 26.56px;
+  position: absolute;
+  left: 13px;
+  top: 36.21px;
+  transform-origin: 0 0;
+  transform: rotate(0deg) scale(1, -1);
+  object-fit: cover;
+}
+.manual-operation-box {
+  background: #d9d9d9;
+  width: 385px;
+  height: 766px;
+  position: absolute;
+  left: 18px;
+  top: 22px;
+}
+.manual-operation-header {
+  background: #282828;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
+  width: 385px;
+  height: 28px;
+  position: absolute;
+  left: 18px;
+  top: 22px;
+}
+.manual-operation-main {
+  background: #e6e6e6;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
+  width: 385px;
+  height: 739px;
+  position: absolute;
+  left: 18px;
+  top: 49px;
+}
+.close {
+  width: 17px;
+  height: 15px;
+  position: absolute;
+  left: 377px;
+  top: 28px;
+  object-fit: cover;
+}
+.manual-operation {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  position: absolute;
+  left: 23px;
+  top: 25px;
+  -webkit-text-stroke: 1px #000000;
+}
+.auto {
+  background: #c5c5c5;
+  width: 160px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 74px;
+}
+._1 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 197px;
+  top: 76px;
+}
+.auto2 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 78px;
+}
+.manual {
+  background: #c5c5c5;
+  width: 160px;
+  height: 32px;
+  position: absolute;
+  left: 218px;
+  top: 74px;
+}
+._2 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 76px;
+}
+.manual2 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 224px;
+  top: 78px;
+}
+.pumping {
+  background: #c5c5c5;
+  width: 333px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 116px;
+}
+._3 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 118px;
+}
+.pumping-station {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 121px;
+}
+.high-vacuum-pump {
+  background: #c5c5c5;
+  width: 333px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 160px;
+}
+._4 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 162px;
+}
+.high-vacuum-pump2 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 165px;
+}
+.evacuate-fine {
+  background: #c5c5c5;
+  width: 333px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 203px;
+}
+._5 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 205px;
+}
+.evacuate-fine-vaccum {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 208px;
+}
+.evacuate-high {
+  background: #c5c5c5;
+  width: 333px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 246px;
+}
+._6 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 248px;
+}
+.evacuate-high-vaccum {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 251px;
+}
+.fur-pre-control {
+  background: #c5c5c5;
+  width: 333px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 289px;
+}
+._7 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 291px;
+}
+.furnace-pressure-control {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 294px;
+}
+.fur-hit {
+  background: #c5c5c5;
+  width: 333px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 333px;
+}
+._8 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 335px;
+}
+.furnace-heating {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 338px;
+}
+.n-2 {
+  background: #c5c5c5;
+  width: 333px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 376px;
+}
+._9 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 378px;
+}
+.n-2-inlet {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 381px;
+}
+.ar {
+  background: #c5c5c5;
+  width: 333px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 419px;
+}
+._10 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 421px;
+}
+.ar-inlet {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 424px;
+}
+.venting {
+  background: #c5c5c5;
+  width: 333px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 462px;
+}
+._11 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 464px;
+}
+.venting2 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 467px;
+}
+.venting-n-2 {
+  background: #c5c5c5;
+  width: 333px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 505px;
+}
+._12 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 507px;
+}
+.venting-n-22 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 510px;
+}
+.venting-ar {
+  background: #c5c5c5;
+  width: 333px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 549px;
+}
+._13 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 551px;
+}
+.venting-ar2 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 554px;
+}
+.fastcooling {
+  background: #c5c5c5;
+  width: 333px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 592px;
+}
+._14 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 594px;
+}
+.fastcooling2 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 597px;
+}
+.manual-leaktest {
+  background: #c5c5c5;
+  width: 333px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 635px;
+}
+._15 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 637px;
+}
+.manual-leaktest2 {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 640px;
+}
+.open-lid {
+  background: #c5c5c5;
+  width: 333px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 691px;
+}
+._16 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 693px;
+}
+.open-lid-clamps {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 696px;
+}
+.close-lid {
+  background: #c5c5c5;
+  width: 333px;
+  height: 32px;
+  position: absolute;
+  left: 45px;
+  top: 734px;
+}
+._17 {
+  background: #e3e3e3;
+  width: 7px;
+  height: 28px;
+  position: absolute;
+  left: 370px;
+  top: 736px;
+}
+.close-lid-clamps {
+  color: #000000;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  position: absolute;
+  left: 51px;
+  top: 739px;
+}

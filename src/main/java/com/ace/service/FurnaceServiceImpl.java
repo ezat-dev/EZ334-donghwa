@@ -29,6 +29,31 @@ public class FurnaceServiceImpl implements FurnaceService{
 		furnaceDao.recipeDataWrite(recipe);
 	}
 
+	@Override
+	public void recipeNew() {
+		furnaceDao.recipeNew();
+	}
+
+	@Override
+	public void recipeCopy(Recipe recipe) {
+		furnaceDao.recipeCopy(recipe);
+	}
+
+	@Override
+	public void recipeDelete(Recipe recipe) {
+		furnaceDao.recipeDelete(recipe);
+	}
+
+	@Override
+	public int recipeCheck(Recipe recipe) {
+		return furnaceDao.recipeCheck(recipe);
+	}
+
+	@Override
+	public List<Recipe> graphicalProcessTrend(Recipe recipe) {
+		return furnaceDao.graphicalProcessTrend(recipe);
+	}
+
 	
 
 }
