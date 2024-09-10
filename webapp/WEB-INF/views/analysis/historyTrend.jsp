@@ -5,16 +5,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>History Trend</title>
-<link rel="stylesheet" href="resources/style.css">
+
 <link rel="shortcut icon" href="resources/image/KPF.jpg" type="image/x-icon" />
-  <%@ include file="../include/mainHeader.jsp" %>
-
 <!-- 하이차트 라이브러리 포함 -->
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+ <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+ <%@ include file="../include/mainHeader.jsp" %>
+  <title>Recipe</title>
+<jsp:include page="../include/pluginpage.jsp"/>
 <style>
 /* HTML과 body의 높이를 100%로 설정 */
 html, body {
@@ -33,12 +36,11 @@ html, body {
 /* 왼쪽 4칸 영역 */
 .left {
     flex: 3;
-    background-color: #f8f9fa; /* 밝은 회색 배경색 */
-
-    border-right: 1px solid #ddd; /* 오른쪽 경계선 추가 */
+    background-color: #f8f9fa; 
+    border-right: 1px solid #c0c7cf; 
     box-sizing: border-box;
     display: flex;
-    align-items: center; /* 수직 가운데 정렬 */
+    align-items: center; 
 }
 
 .left h2 {
@@ -58,6 +60,7 @@ html, body {
     margin-bottom: 5px;
     font-weight: bold;
     color: #555;
+    
 }
 
 .pen-settings input[type="text"],
@@ -78,8 +81,10 @@ html, body {
 
 .pen-settings input[type="color"],
 .pen-settings button {
-    width: 530px; 
+    width: 590px; 
     height: 40px; 
+    margin-left: 5px;
+    
 }
 
 .pen-settings button {
@@ -97,7 +102,7 @@ html, body {
 /* 오른쪽 6칸 영역 */
 .right {
     flex: 7;
-    background-color: lightblue; /* 배경색은 예시입니다. 필요에 따라 제거 또는 변경하세요 */
+     background-color: #f8f9fa; /* 밝은 회색 배경색 */
     padding: 10px;
     position: relative;
     display: flex;
@@ -110,116 +115,262 @@ html, body {
     height: 50%;
     margin: 0 auto; /* 차트를 중앙에 배치 */
 }
-</style>
 
+.pen-group-settings {
+    display: flex;
+    align-items: center; /* 수직 가운데 정렬 */
+    height: 80px; /* 높이 설정 */
+    gap: 10px; /* 요소 간의 간격 */
+}
+
+.pen-group-settings label {
+    margin: 0; /* 마진 제거 */
+    font-weight: bold;
+
+}
+
+.pen-group-settings select {
+    margin: 0; /* 마진 제거 */
+    height: 36px;
+     width: 150px;
+}
+
+.btn-container {
+    display: flex;
+    gap: 10px; /* 버튼 간의 간격 */
+      height: 40px; /* 버튼 높이 설정 */
+    width: 340px;
+    margin-left: 5px;
+
+}
+
+.pen-group-settings button {
+        font-size:12px;
+         font-weight: bold;
+}
+#pen-list{
+font-size:15px;
+}
+</style>
 </head>
 <body>
- 
+    <div class="container">
+        <div class="left">
+            <div class="pen-settings">
+                <div class="pen-group-settings">
+                    <label for="pen-group">Pen Group:</label>
+                    <select id="pen-group">
+                       
+                    </select>
+                    <div class="btn-container">
+                        <button id="load-pen-group"><i class="fas fa-save"></i> LOAD PEN GROUP</button>
+                        <button id="delete-pen-group"><i class="fas fa-trash"></i> DELETE PEN GROUP</button>
+                    </div>
+                </div>
+                <h2>Pen Groups Settings</h2>
+                <label for="pen-search">Search Pen:</label>
+                <input type="text" id="pen-search" placeholder="Search Pen...">
+                <label for="pen-list">Pen List:</label>
+                <select id="pen-list" multiple></select>
+                <label for="pen-color">Color:</label>
+                <input type="color" id="pen-color" value="#ff0000">
+                <button type="button" id="add-button">Add</button>
+                <button type="button" id="all-button">ALL</button>
+            </div>
+        </div>
+        <div class="right">
+            <div id="container"></div>
+        </div>
+    </div>
 
-   <div class="container">
-       <div class="left">
-           <!-- 왼쪽 4칸에 들어갈 내용 -->
-           <div class="pen-settings">
-               <h2>Pen Groups Settings</h2>
-               
-               <!-- 팬 검색 -->
-               <label for="pen-search">Search Pen:</label>
-               <input type="text" id="pen-search" placeholder="Search Pen...">
+    <script>
+//로드
+$(document).ready(function() {
+    // 페이지 로드 시 펜 그룹 목록 초기화
+//    loadPenGroups();
 
-               <!-- 팬 목록 -->
-               <label for="pen-list">Pen List:</label>
-               <select id="pen-list" multiple>
-                   <option>Pen 1</option>
-                   <option>Pen 2</option>
-                   <option>Pen 3</option>
-                   <option>Pen 4</option>
-               </select>
 
-               <!-- 컬러 설정 -->
-               <label for="pen-color">Color:</label>
-               <input type="color" id="pen-color" value="#ff0000">
+//    loadPenList(); // 페이지 로드 시 펜 목록 초기화
 
-               <!-- Add 버튼 -->
-               <button type="button">Add</button>
-           </div>
-       </div>
-       <div class="right">
-           <!-- 오른쪽 6칸에 들어갈 내용 -->
-           <div id="container"></div>
-       </div>
-   </div>
+});
 
-   <script>
-   // 하이차트 초기화 코드
-   document.addEventListener('DOMContentLoaded', function () {
-       Highcharts.chart('container', {
-           chart: {
-               type: 'line'
-           },
-           title: {
-               text: 'Monthly Average Temperature'
-           },
-           subtitle: {
-               text: 'Source: WorldClimate.com'
-           },
-           xAxis: {
-               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-           },
-           yAxis: {
-               title: {
-                   text: 'Temperature (°C)'
-               }
-           },
-           tooltip: {
-               enabled: true,
-               shared: true,
-               crosshairs: true
-           },
-           legend: {
-               layout: 'horizontal',
-               align: 'center',
-               verticalAlign: 'bottom'
-           },
-           plotOptions: {
-               line: {
-                   dataLabels: {
-                       enabled: true
-                   },
-                   enableMouseTracking: true
-               }
-           },
-           series: [{
-               name: 'Tokyo',
-               data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-           }, {
-               name: 'New York',
-               data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-           }, {
-               name: 'Berlin',
-               data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-           }, {
-               name: 'London',
-               data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-           }],
-           responsive: {
-               rules: [{
-                   condition: {
-                       maxWidth: 500
-                   },
-                   chartOptions: {
-                       legend: {
-                           layout: 'horizontal',
-                           align: 'center',
-                           verticalAlign: 'bottom'
-                       }
-                   }
-               }]
-           },
-           exporting: {
-               enabled: true
-           }
-       });
-   });
-   </script>
+
+
+//이벤트
+$('#pen-group').on('change', function() {
+    var selectedGroup = $(this).val();
+    if (selectedGroup) {
+        $.ajax({
+            url: '/donghwa/analysis/historyTrend/filteredDataByGroup',
+            method: 'GET',
+            data: { groupName: selectedGroup },
+            dataType: 'json',
+            success: function(data) {
+                console.log('Fetched Data by Group:', data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error fetching data:', textStatus, errorThrown);
+            }
+        });
+    }
+});
+
+$('#all-button').on('click', function() {
+    $.ajax({
+        url: '/donghwa/analysis/historyTrend/all',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            console.log('Fetched Data:', data);
+
+            // 데이터 변환
+            var formattedData = data.map(item => {
+                var utcDate = new Date(item.tdateISO);
+                var kstDate = new Date(utcDate.getTime() + (9 * 60 * 60 * 1000)); // UTC+9
+
+                return {
+                    x: kstDate.getTime(), // X축에 사용할 밀리초 단위의 값
+                    y: parseFloat(item.c1) // Y축에 사용할 값
+                };
+            });
+
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'line',
+                    backgroundColor: '#ffffff'
+                },
+                title: {
+                    text: 'Historical Trend'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    title: {
+                        text: 'Date'
+                    },
+                    labels: {
+                        format: '{value:%m-%d %H:%M:%S}'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Values'
+                    }
+                },
+                series: [{
+                    name: 'c1',
+                    data: formattedData
+                }, {
+                    name: 'c2',
+                    data: data.map(item => {
+                        var utcDate = new Date(item.tdateISO);
+                        var kstDate = new Date(utcDate.getTime() + (9 * 60 * 60 * 1000)); // UTC+9
+                        return [kstDate.getTime(), parseFloat(item.c2)];
+                    })
+                }, {
+                    name: 'c3',
+                    data: data.map(item => {
+                        var utcDate = new Date(item.tdateISO);
+                        var kstDate = new Date(utcDate.getTime() + (9 * 60 * 60 * 1000)); // UTC+9
+                        return [kstDate.getTime(), parseFloat(item.c3)];
+                    })
+                }, {
+                    name: 'c4',
+                    data: data.map(item => {
+                        var utcDate = new Date(item.tdateISO);
+                        var kstDate = new Date(utcDate.getTime() + (9 * 60 * 60 * 1000)); // UTC+9
+                        return [kstDate.getTime(), parseFloat(item.c4)];
+                    })
+                }, {
+                    name: 'c5',
+                    data: data.map(item => {
+                        var utcDate = new Date(item.tdateISO);
+                        var kstDate = new Date(utcDate.getTime() + (9 * 60 * 60 * 1000)); // UTC+9
+                        return [kstDate.getTime(), parseFloat(item.c5)];
+                    })
+                }, {
+                    name: 'c6',
+                    data: data.map(item => {
+                        var utcDate = new Date(item.tdateISO);
+                        var kstDate = new Date(utcDate.getTime() + (9 * 60 * 60 * 1000)); // UTC+9
+                        return [kstDate.getTime(), parseFloat(item.c6)];
+                    })
+                }, {
+                    name: 'c7',
+                    data: data.map(item => {
+                        var utcDate = new Date(item.tdateISO);
+                        var kstDate = new Date(utcDate.getTime() + (9 * 60 * 60 * 1000)); // UTC+9
+                        return [kstDate.getTime(), parseFloat(item.c7)];
+                    })
+                }, {
+                    name: 'c8',
+                    data: data.map(item => {
+                        var utcDate = new Date(item.tdateISO);
+                        var kstDate = new Date(utcDate.getTime() + (9 * 60 * 60 * 1000)); // UTC+9
+                        return [kstDate.getTime(), parseFloat(item.c8)];
+                    })
+                }, {
+                    name: 'c9',
+                    data: data.map(item => {
+                        var utcDate = new Date(item.tdateISO);
+                        var kstDate = new Date(utcDate.getTime() + (9 * 60 * 60 * 1000)); // UTC+9
+                        return [kstDate.getTime(), parseFloat(item.c9)];
+                    })
+                }]
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching data:', error);
+        }
+    });
+});
+
+    
+//함수
+// 펜 그룹 목록 로드
+function loadPenGroups() {
+    $.ajax({
+        url: '/donghwa/analysis/historyTrend/groupNames', // 실제 API 엔드포인트로 수정
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            console.log('Fetched Pen Groups:', data);
+            var penGroupSelect = $('#pen-group');
+            penGroupSelect.empty(); // 현재 목록을 비웁니다.
+
+            // 데이터가 문자열 배열이라면
+            data.forEach(function(groupName) {
+                penGroupSelect.append(new Option(groupName, groupName));
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching pen groups:', error);
+        }
+    });
+}
+
+
+// 펜 목록 로드 함수 (기존 코드와 동일)
+function loadPenList() {
+    $.ajax({
+        url: '/donghwa/analysis/historyTrend/penNames',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            console.log('Fetched Pen List:', data);
+            var penList = $('#pen-list');
+            penList.empty(); // 현재 목록을 비웁니다.
+
+            // 데이터가 문자열 배열이라면
+            data.forEach(function(penName) {
+                penList.append(new Option(penName, penName));
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching pen list:', error);
+        }
+    });
+}
+    
+    </script>
 </body>
 </html>
