@@ -70,151 +70,151 @@ public class AnalysisController {
 		return rtnMap;
 	}
 	
-	//차트데이터 조회
+	// 차트 데이터 조회
 	@RequestMapping(value = "/analysis/historyTrendPenGroupChart", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> historyTrendPenGroupChart(Model model,
-			@RequestParam(required = false) String pen_group_name,
-			@RequestParam(required = false) String sdateTime,
-			@RequestParam(required = false) String edateTime){
-		Map<String, Object> rtnMap = new HashMap<String, Object>();
-		
-		Temper temper = new Temper();
-		temper.setSdateTime(sdateTime);
-		temper.setEdateTime(edateTime);
-		temper.setPen_group_name(pen_group_name);
-		
-		String penGroupNameConcat = historyTrendPenGroupChartGroupName(pen_group_name);
-		
-		List<Temper> penList = analysisService.historyTrendPenGroupChart(temper);
-		
-		List<Object> tdateList = new ArrayList<Object>();
-		
-		List<Object> c1List = new ArrayList<Object>();
-		List<Object> c2List = new ArrayList<Object>();
-		List<Object> c3List = new ArrayList<Object>();
-		List<Object> c4List = new ArrayList<Object>();
-		List<Object> c5List = new ArrayList<Object>();
-		List<Object> c6List = new ArrayList<Object>();
-		List<Object> c7List = new ArrayList<Object>();
-		List<Object> c8List = new ArrayList<Object>();
-		List<Object> c9List = new ArrayList<Object>();
-		
-		for(int i=0; i<penList.size(); i++) {
-			tdateList.add(Integer.parseInt(penList.get(i).getTdate()));
-			
-			List<Object> c1 = new ArrayList<Object>();
-			c1.add(Integer.parseInt(penList.get(i).getTdate()));
-			c1.add(Integer.parseInt(penList.get(i).getC1()));
-			
-			List<Object> c2 = new ArrayList<Object>();
-			c2.add(Integer.parseInt(penList.get(i).getTdate()));
-			c2.add(Integer.parseInt(penList.get(i).getC2()));
-			
-			List<Object> c3 = new ArrayList<Object>();
-			c3.add(Integer.parseInt(penList.get(i).getTdate()));
-			c3.add(Integer.parseInt(penList.get(i).getC3()));
-			
-			List<Object> c4 = new ArrayList<Object>();
-			c4.add(Integer.parseInt(penList.get(i).getTdate()));
-			c4.add(Integer.parseInt(penList.get(i).getC4()));
-			
-			List<Object> c5 = new ArrayList<Object>();
-			c5.add(Integer.parseInt(penList.get(i).getTdate()));
-			c5.add(Integer.parseInt(penList.get(i).getC5()));
-			
-			List<Object> c6 = new ArrayList<Object>();
-			c6.add(Integer.parseInt(penList.get(i).getTdate()));
-			c6.add(Integer.parseInt(penList.get(i).getC6()));
-			
-			List<Object> c7 = new ArrayList<Object>();
-			c7.add(Integer.parseInt(penList.get(i).getTdate()));
-			c7.add(Integer.parseInt(penList.get(i).getC7()));
-			
-			List<Object> c8 = new ArrayList<Object>();
-			c8.add(Integer.parseInt(penList.get(i).getTdate()));
-			c8.add(Integer.parseInt(penList.get(i).getC8()));
-			
-			List<Object> c9 = new ArrayList<Object>();
-			c9.add(Integer.parseInt(penList.get(i).getTdate()));
-			c9.add(Integer.parseInt(penList.get(i).getC9()));
-			
-			
-			c1List.add(c1);
-			c2List.add(c2);
-			c3List.add(c3);
-			c4List.add(c4);
-			c5List.add(c5);
-			c6List.add(c6);
-			c7List.add(c7);
-			c8List.add(c8);
-			c9List.add(c9);
-		}
-		
-		Map<String, Object> c1Map = new HashMap<String, Object>();
-		Map<String, Object> c2Map = new HashMap<String, Object>();
-		Map<String, Object> c3Map = new HashMap<String, Object>();
-		Map<String, Object> c4Map = new HashMap<String, Object>();
-		Map<String, Object> c5Map = new HashMap<String, Object>();
-		Map<String, Object> c6Map = new HashMap<String, Object>();
-		Map<String, Object> c7Map = new HashMap<String, Object>();
-		Map<String, Object> c8Map = new HashMap<String, Object>();
-		Map<String, Object> c9Map = new HashMap<String, Object>();
-		
-		c1Map.put("name","c1");
-		c1Map.put("color","#FF0000");
-		c1Map.put("data",c1List);
-		
-		c2Map.put("name","c2");
-		c2Map.put("color","#F0F0F0");
-		c2Map.put("data",c2List);
-		
-		c3Map.put("name","c3");
-		c3Map.put("color","#ABF200");
-		c3Map.put("data",c3List);
-		
-		c4Map.put("name","c4");
-		c4Map.put("color","#FFB2D9");
-		c4Map.put("data",c4List);
-		
-		c5Map.put("name","c5");
-		c5Map.put("color","#FFC19E");
-		c5Map.put("data",c5List);
-		
-		c6Map.put("name","c6");
-		c6Map.put("color","#F15F5F");
-		c6Map.put("data",c6List);
-		
-		c7Map.put("name","c7");
-		c7Map.put("color","#5F00FF");
-		c7Map.put("data",c7List);
-		
-		c8Map.put("name","c8");
-		c8Map.put("color","#5CD1E5");
-		c8Map.put("data",c8List);
-		
-		c9Map.put("name","c9");
-		c9Map.put("color","#2F9D27");
-		c9Map.put("data",c9List);
-		
-		rtnMap.put("tdate", tdateList);
-		rtnMap.put("c1", c1Map);
-		rtnMap.put("c2", c2Map);
-		rtnMap.put("c3", c3Map);
-		rtnMap.put("c4", c4Map);
-		rtnMap.put("c5", c5Map);
-		rtnMap.put("c6", c6Map);
-		rtnMap.put("c7", c7Map);
-		rtnMap.put("c8", c8Map);
-		rtnMap.put("c9", c9Map);
-		rtnMap.put("groupConcat", penGroupNameConcat);
-		
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		
-		resultMap.put("data", rtnMap);
-		
-		return resultMap;
+	        @RequestParam(required = false) String pen_group_name,
+	        @RequestParam(required = false) String sdateTime,
+	        @RequestParam(required = false) String edateTime){
+	    Map<String, Object> rtnMap = new HashMap<String, Object>();
+
+	    Temper temper = new Temper();
+	    temper.setSdateTime(sdateTime);
+	    temper.setEdateTime(edateTime);
+	    temper.setPen_group_name(pen_group_name);
+
+	    String penGroupNameConcat = historyTrendPenGroupChartGroupName(pen_group_name);
+
+	    List<Temper> penList = analysisService.historyTrendPenGroupChart(temper);
+
+	    List<Object> tdateList = new ArrayList<Object>();
+
+	    List<Object> c1List = new ArrayList<Object>();
+	    List<Object> c2List = new ArrayList<Object>();
+	    List<Object> c3List = new ArrayList<Object>();
+	    List<Object> c4List = new ArrayList<Object>();
+	    List<Object> c5List = new ArrayList<Object>();
+	    List<Object> c6List = new ArrayList<Object>();
+	    List<Object> c7List = new ArrayList<Object>();
+	    List<Object> c8List = new ArrayList<Object>();
+	    List<Object> c9List = new ArrayList<Object>();
+
+	    for (int i = 0; i < penList.size(); i++) {
+	        tdateList.add(penList.get(i).getTdate()); // String 그대로 추가
+
+	        List<Object> c1 = new ArrayList<Object>();
+	        c1.add(penList.get(i).getTdate());
+	        c1.add(penList.get(i).getC1());
+
+	        List<Object> c2 = new ArrayList<Object>();
+	        c2.add(penList.get(i).getTdate());
+	        c2.add(penList.get(i).getC2());
+
+	        List<Object> c3 = new ArrayList<Object>();
+	        c3.add(penList.get(i).getTdate());
+	        c3.add(penList.get(i).getC3());
+
+	        List<Object> c4 = new ArrayList<Object>();
+	        c4.add(penList.get(i).getTdate());
+	        c4.add(penList.get(i).getC4());
+
+	        List<Object> c5 = new ArrayList<Object>();
+	        c5.add(penList.get(i).getTdate());
+	        c5.add(penList.get(i).getC5());
+
+	        List<Object> c6 = new ArrayList<Object>();
+	        c6.add(penList.get(i).getTdate());
+	        c6.add(penList.get(i).getC6());
+
+	        List<Object> c7 = new ArrayList<Object>();
+	        c7.add(penList.get(i).getTdate());
+	        c7.add(penList.get(i).getC7());
+
+	        List<Object> c8 = new ArrayList<Object>();
+	        c8.add(penList.get(i).getTdate());
+	        c8.add(penList.get(i).getC8());
+
+	        List<Object> c9 = new ArrayList<Object>();
+	        c9.add(penList.get(i).getTdate());
+	        c9.add(penList.get(i).getC9());
+
+	        c1List.add(c1);
+	        c2List.add(c2);
+	        c3List.add(c3);
+	        c4List.add(c4);
+	        c5List.add(c5);
+	        c6List.add(c6);
+	        c7List.add(c7);
+	        c8List.add(c8);
+	        c9List.add(c9);
+	    }
+
+	    Map<String, Object> c1Map = new HashMap<String, Object>();
+	    Map<String, Object> c2Map = new HashMap<String, Object>();
+	    Map<String, Object> c3Map = new HashMap<String, Object>();
+	    Map<String, Object> c4Map = new HashMap<String, Object>();
+	    Map<String, Object> c5Map = new HashMap<String, Object>();
+	    Map<String, Object> c6Map = new HashMap<String, Object>();
+	    Map<String, Object> c7Map = new HashMap<String, Object>();
+	    Map<String, Object> c8Map = new HashMap<String, Object>();
+	    Map<String, Object> c9Map = new HashMap<String, Object>();
+
+	    c1Map.put("name", "c1");
+	    c1Map.put("color", "#FF0000");
+	    c1Map.put("data", c1List);
+
+	    c2Map.put("name", "c2");
+	    c2Map.put("color", "#F0F0F0");
+	    c2Map.put("data", c2List);
+
+	    c3Map.put("name", "c3");
+	    c3Map.put("color", "#ABF200");
+	    c3Map.put("data", c3List);
+
+	    c4Map.put("name", "c4");
+	    c4Map.put("color", "#FFB2D9");
+	    c4Map.put("data", c4List);
+
+	    c5Map.put("name", "c5");
+	    c5Map.put("color", "#FFC19E");
+	    c5Map.put("data", c5List);
+
+	    c6Map.put("name", "c6");
+	    c6Map.put("color", "#F15F5F");
+	    c6Map.put("data", c6List);
+
+	    c7Map.put("name", "c7");
+	    c7Map.put("color", "#5F00FF");
+	    c7Map.put("data", c7List);
+
+	    c8Map.put("name", "c8");
+	    c8Map.put("color", "#5CD1E5");
+	    c8Map.put("data", c8List);
+
+	    c9Map.put("name", "c9");
+	    c9Map.put("color", "#2F9D27");
+	    c9Map.put("data", c9List);
+
+	    rtnMap.put("tdate", tdateList);
+	    rtnMap.put("c1", c1Map);
+	    rtnMap.put("c2", c2Map);
+	    rtnMap.put("c3", c3Map);
+	    rtnMap.put("c4", c4Map);
+	    rtnMap.put("c5", c5Map);
+	    rtnMap.put("c6", c6Map);
+	    rtnMap.put("c7", c7Map);
+	    rtnMap.put("c8", c8Map);
+	    rtnMap.put("c9", c9Map);
+	    rtnMap.put("groupConcat", penGroupNameConcat);
+
+	    Map<String, Object> resultMap = new HashMap<String, Object>();
+
+	    resultMap.put("data", rtnMap);
+
+	    return resultMap;
 	}
+
 	
 	//펜 리스트 group_concat으로
 	public String historyTrendPenGroupChartGroupName(String pen_group_name) {
